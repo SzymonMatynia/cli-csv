@@ -2,12 +2,7 @@
 
 namespace App\Tests;
 
-use App\Kernel;
-use App\Service\CSVManagerService;
-use App\Service\CSVManagerServiceInterface;
-use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
-use Symfony\Component\Serializer\Encoder\CsvEncoder;
 
 class CSVManagerServiceTest extends KernelTestCase
 {
@@ -43,9 +38,11 @@ class CSVManagerServiceTest extends KernelTestCase
     {
         $data = self::$FEED_REPOSITORY->getArrayOfFeedObjects('http://feeds.bbci.co.uk/news/world/rss.xml');
         self::$CSV->writeToCSVFile(self::$PATH_TO_FILE, $data, 'a');
+        $content = file_get_contents(self::$kernel->getProjectDir() . self::$PATH_TO_FILE);
 
+        $count = substr_count($content, $this->header);
 
-        $this->assertEquals(1, 1);
+        $this->assertEquals(1, $count);
     }
 
     public static function tearDownAfterClass()

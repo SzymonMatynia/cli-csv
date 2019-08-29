@@ -9,22 +9,16 @@ use Symfony\Component\Serializer\Encoder\EncoderInterface;
 
 class CSVManagerService implements CSVManagerServiceInterface
 {
-    private const CSV_HEADER = "title,description,link,guid,pubDate,creator";
-
 
     /**
      * @var KernelInterface
      */
     private $kernel;
+
     /**
      * @var EncoderInterface
      */
     private $encoder;
-
-    /**
-     * @var
-     */
-    private $path;
 
     public function __construct(KernelInterface $kernel, EncoderInterface $encoder)
     {
