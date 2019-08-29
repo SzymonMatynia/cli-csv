@@ -3,41 +3,24 @@
 
 namespace App\Command;
 
-use App\Repository\FeedRepository;
-use App\Service\CSVManagerServiceInterface;
-use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-class OverwriteFeedCommand extends Command
+class OverwriteFeedCommand extends AbstractFeedCommand
 {
     /**
      * @var string
      */
     protected static $defaultName = 'csv:simple';
 
-    /**
-     *
-     */
     private const WRITE_MODE = 'w';
-
-    use FeedCommandTrait;
-
-    public function __construct(string $name = null, FeedRepository $feedRepository, CSVManagerServiceInterface $fm)
-    {
-        parent::__construct($name);
-        $this->feedRepository = $feedRepository;
-        $this->fm = $fm;
-    }
 
     protected function configure()
     {
+        parent::configure();
         $this
-            ->setDescription('Add a short description for your command')
-            ->addArgument('link', InputArgument::REQUIRED, 'Link to look for RSS/Atom')
-            ->addArgument('filename', InputArgument::REQUIRED, 'name for the file add / to put in specific directory')
+            ->setDescription('This command will overwrite the csv to file')
         ;
     }
 
@@ -50,10 +33,10 @@ class OverwriteFeedCommand extends Command
         $path = $this->pathToFile . $input->getArgument('filename');
 
         // get array of rss data
-        $data = $this->feedRepository->getArrayOfFeedObjects($url);
+        $data = $this->fm->getArrayOfFeedObjects($url);
 
         // create a file, otherwise throw an error
-        $this->fm->writeToCSVFile($path, $data, 'a');
+        $this->fm->writeToCSVFile($path, $data, OverwriteFeedCommand::WRITE_MODE);
 
         $io->success('You have your data created.');
     }

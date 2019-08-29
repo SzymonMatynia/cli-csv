@@ -3,74 +3,39 @@
 
 namespace App\Service;
 
-use Symfony\Component\HttpKernel\KernelInterface;
-use Symfony\Component\Serializer\Encoder\CsvEncoder;
-use Symfony\Component\Serializer\Encoder\EncoderInterface;
+use App\Repository\FeedRepository;
 
 class CSVManagerService implements CSVManagerServiceInterface
 {
+    private $feedRepository;
 
     /**
-     * @var KernelInterface
+     * CSVManagerService constructor.
+     * @param FeedRepository $feedRepository
      */
-    private $kernel;
-
-    /**
-     * @var EncoderInterface
-     */
-    private $encoder;
-
-    public function __construct(KernelInterface $kernel, EncoderInterface $encoder)
+    public function __construct(FeedRepository $feedRepository)
     {
-        $this->kernel = $kernel;
-        $this->encoder = $encoder;
+        $this->feedRepository = $feedRepository;
+    }
+
+    /**
+     * @param string $url
+     * @return array|mixed
+     */
+    public function getArrayOfFeedObjects(string $url)
+    {
+        return $this->feedRepository->getArrayOfFeedObjects($url);
     }
 
     /**
      * @param string $path
      * @param array $data
      * @param string $writeMode
+     * @return mixed|void
      * @throws \Exception
      */
-    public function writeToCSVFile(string $path, array $data, string $writeMode) : void
+    public function writeToCSVFile(string $path, array $data, string $writeMode)
     {
-        $this->path = $this->kernel->getProjectDir() . $path;
-
-        $data = $this->getDataToEncodeFromFeedObjects($data);
-
-        $fp = @fopen($this->path, $writeMode);
-        if (!$fp) {
-            throw new \Exception('Directory doesnt exist.');
-        }
-
-        $dataEncoded = $this->encodeDataToCSV($writeMode, $data);
-
-        fputs($fp, $dataEncoded);
-    }
-
-    /**
-     * @param string $writeMode
-     * @param $data
-     * @return bool|float|int|string
-     */
-    private function encodeDataToCSV(string $writeMode, $data)
-    {
-        if ($writeMode === 'a' && filesize($this->path) !== 0) {
-            return $this->encoder->encode($data, 'csv', [CsvEncoder::NO_HEADERS_KEY => true]);
-        }
-        return $this->encoder->encode($data, 'csv');
-    }
-
-    /**
-     * @param array $data
-     * @return array
-     */
-    private function getDataToEncodeFromFeedObjects(array $data) : array
-    {
-        $dataToEncode = [];
-        foreach ($data as $feedObj) {
-            $dataToEncode[] = $feedObj->getDataToEncode();
-        }
-        return $dataToEncode;
+        $this->feedRepository->writeToCSVFile($path, $data, $writeMode);
     }
 }
