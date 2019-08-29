@@ -9,8 +9,8 @@ To run this CLI app just do few simple steps:
 2. run `composer install`
 
 Features:
-1. `./bin/console/csv:simple [link_to_rss] [csv_name]`
-2. `./bin/console/csv:extended [link_to_rss] [csv_name]`
+1. `./src/console/csv:simple [link_to_rss] [csv_name]`
+2. `./src/console/csv:extended [link_to_rss] [csv_name]`
 
 Testing & code quality:
 1. `./vendor/bin/phpcs` - code sniffer
