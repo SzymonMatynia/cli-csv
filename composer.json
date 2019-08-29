@@ -18,6 +18,7 @@
         "symfony/yaml": "4.3.*"
     },
     "require-dev": {
+        "fzaninotto/faker": "^1.8"
     },
     "config": {
         "preferred-install": {

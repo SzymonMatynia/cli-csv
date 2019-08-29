@@ -11,6 +11,7 @@ class CSVManagerService implements CSVManagerServiceInterface
 {
     private const CSV_HEADER = "title,description,link,guid,pubDate,creator";
 
+
     /**
      * @var KernelInterface
      */
@@ -20,6 +21,11 @@ class CSVManagerService implements CSVManagerServiceInterface
      */
     private $encoder;
 
+    /**
+     * @var
+     */
+    private $path;
+
     public function __construct(KernelInterface $kernel, EncoderInterface $encoder)
     {
         $this->kernel = $kernel;
@@ -28,43 +34,36 @@ class CSVManagerService implements CSVManagerServiceInterface
 
     /**
      * @param string $path
-     * @param string $csvData
+     * @param array $data
      * @param string $writeMode
      * @throws \Exception
      */
-    public function writeToCSVFile(string $path, string $csvData, string $writeMode) : void
+    public function writeToCSVFile(string $path, array $data, string $writeMode) : void
     {
-        $fp = @fopen($this->kernel->getProjectDir() . '/var/csv/' . $path, $writeMode);
+        $this->path = $this->kernel->getProjectDir() . $path;
+
+        $data = $this->getDataToEncodeFromFeedObjects($data);
+
+        $fp = @fopen($this->path, $writeMode);
         if (!$fp) {
-            throw new \Exception('Directory doesnt exist. Try again');
+            throw new \Exception('Directory doesnt exist.');
         }
-        fputs($fp, $csvData);
-        fclose($fp);
+
+        $dataEncoded = $this->encodeDataToCSV($writeMode, $data);
+
+        fputs($fp, $dataEncoded);
     }
 
     /**
-     * @param array $data
-     * @param string $path
-     * @return string
+     * @param string $writeMode
+     * @param $data
+     * @return bool|float|int|string
      */
-    public function encodeFeedObjectsToCSVDataInAppendMode(array $data, string $path) : string
+    private function encodeDataToCSV(string $writeMode, $data)
     {
-        $data = $this->getDataToEncodeFromFeedObjects($data);
-
-        if (trim(fgets(fopen($this->kernel->getProjectDir() . '/var/csv/' . $path, 'r'))) === CSVManagerService::CSV_HEADER) {
+        if ($writeMode === 'a' && filesize($this->path) !== 0) {
             return $this->encoder->encode($data, 'csv', [CsvEncoder::NO_HEADERS_KEY => true]);
-        } else {
-            return $this->encoder->encode($data, 'csv');
         }
-    }
-
-    /**
-     * @param array $data
-     * @return string
-     */
-    public function encodeFeedObjectsToCSVDataInOverwriteMode(array $data) : string
-    {
-        $data = $this->getDataToEncodeFromFeedObjects($data);
         return $this->encoder->encode($data, 'csv');
     }
 
