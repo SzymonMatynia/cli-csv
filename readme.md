@@ -1,4 +1,5 @@
 #CLI-CSV APP
+Based on Symfony Skeleton and symfony bundles in sake of simplicity and future development.
 
 To run this CLI app just do few simple steps:
 1. clone the repository
