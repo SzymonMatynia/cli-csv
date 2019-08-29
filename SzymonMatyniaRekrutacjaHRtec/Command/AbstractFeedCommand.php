@@ -1,9 +1,9 @@
 <?php
 
 
-namespace App\Command;
+namespace SzymonMatyniaRekrutacjaHRtec\Command;
 
-use App\Service\CSVManagerServiceInterface;
+use SzymonMatyniaRekrutacjaHRtec\Service\CSVManagerServiceInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 

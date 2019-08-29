@@ -1,26 +1,26 @@
 <?php
 
 
-namespace App\Command;
+namespace SzymonMatyniaRekrutacjaHRtec\Command;
 
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-class AppendFeedCommand extends AbstractFeedCommand
+class OverwriteFeedCommand extends AbstractFeedCommand
 {
     /**
      * @var string
      */
-    protected static $defaultName = 'csv:extended';
+    protected static $defaultName = 'csv:simple';
 
-    private const WRITE_MODE = 'a';
+    private const WRITE_MODE = 'w';
 
     protected function configure()
     {
         parent::configure();
         $this
-            ->setDescription('This command will append or save the csv to file')
+            ->setDescription('This command will overwrite the csv to file')
         ;
     }
 
@@ -36,7 +36,7 @@ class AppendFeedCommand extends AbstractFeedCommand
         $data = $this->fm->getArrayOfFeedObjects($url);
 
         // create a file, otherwise throw an error
-        $this->fm->writeToCSVFile($path, $data, AppendFeedCommand::WRITE_MODE);
+        $this->fm->writeToCSVFile($path, $data, OverwriteFeedCommand::WRITE_MODE);
 
         $io->success('You have your data created.');
     }

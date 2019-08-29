@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Repository;
+namespace SzymonMatyniaRekrutacjaHRtec\Repository;
 
-use App\Entity\Feed;
+use SzymonMatyniaRekrutacjaHRtec\Entity\Feed;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use FeedIo\FeedIo;

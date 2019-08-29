@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests;
+namespace SzymonMatyniaRekrutacjaHRtec\Tests;
 
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 

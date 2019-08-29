@@ -1,9 +1,9 @@
 <?php
 
 
-namespace App\Service;
+namespace SzymonMatyniaRekrutacjaHRtec\Service;
 
-use App\Repository\FeedRepository;
+use SzymonMatyniaRekrutacjaHRtec\Repository\FeedRepository;
 
 class CSVManagerService implements CSVManagerServiceInterface
 {

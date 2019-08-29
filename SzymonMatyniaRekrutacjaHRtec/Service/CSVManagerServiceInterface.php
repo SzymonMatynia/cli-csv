@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Service;
+namespace SzymonMatyniaRekrutacjaHRtec\Service;
 
 interface CSVManagerServiceInterface
 {

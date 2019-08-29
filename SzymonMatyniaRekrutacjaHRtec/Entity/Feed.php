@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity;
+namespace SzymonMatyniaRekrutacjaHRtec\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
