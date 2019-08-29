@@ -5,7 +5,7 @@ namespace SzymonMatyniaRekrutacjaHRtec\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\FeedRepository")
+ * @ORM\Entity(repositoryClass="SzymonMatyniaRekrutacjaHRtec\Repository\FeedRepository")
  */
 class Feed
 {
