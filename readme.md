@@ -1,5 +1,7 @@
 #CLI-CSV APP
 
+This app downloads data from any RSS channel and put it into the .csv file - in future should provide integration with other formats
+
 Based on Symfony Skeleton and symfony bundles in sake of simplicity and future development.
 
 #.ENV file should be ignored, but left that in sake of faster install.
