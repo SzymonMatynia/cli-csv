@@ -1,10 +1,10 @@
-#CLI-CSV APP
+# CLI-CSV APP
 
-This app downloads data from any RSS channel and put it into the .csv file - in future should provide integration with other formats
+### This app downloads data from any RSS channel and put it into the .csv file - in future should provide integration with other formats
 
-Based on Symfony Skeleton and symfony bundles in sake of simplicity and future development.
+`Based on Symfony Skeleton and symfony bundles in sake of simplicity and future development.`
 
-#.ENV file should be ignored, but left that in sake of faster install.
+.ENV file should be ignored, but left that in sake of faster install.
 
 To run this CLI app just do few simple steps:
 1. clone the repository
